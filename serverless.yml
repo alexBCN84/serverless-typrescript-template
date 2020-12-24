@@ -55,3 +55,4 @@ functions:
       - http:
           method: get
           path: hello
+          cors: true
