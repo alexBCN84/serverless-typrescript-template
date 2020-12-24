@@ -1,5 +1,5 @@
 # check https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml/
-service: blogpost-service
+service: serverless-typescript-template
 frameworkVersion: '2.16.1'
 
 custom:
@@ -10,8 +10,8 @@ custom:
     defaultInherit: true # Each function will inherit the service level roles too.
   globalTables:
     regions: # list of regions in which you want to set up global tables
-      - eu-central-1 # Ohio (default region to date for stack)
-      - eu-west-1 # Sydney (lower latency for Australia)
+      - eu-central-1
+      - eu-west-1
     createStack: true
   prune:
     automatic: true
