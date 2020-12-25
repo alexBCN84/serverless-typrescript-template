@@ -1,8 +1,11 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
+import { /* APIGatewayProxyHandler, */ Handler, Context, Callback } from 'aws-lambda';
 import { echo } from '@queries/exampleQuery';
+import validator from '@middy/validator';
+import helloSchema from '@src/lib/schemas/helloSchema';
+import commonMiddleware from '@src/lib/commonMiddleware';
 import 'source-map-support/register';
 
-export const hello: APIGatewayProxyHandler = async (event) => ({
+const hello: Handler = async (event, context: Context, callback: Callback) => ({
   statusCode: 200,
   headers: {
     'Access-Control-Allow-Origin': '*',
@@ -13,3 +16,8 @@ export const hello: APIGatewayProxyHandler = async (event) => ({
     input: event,
   }, null, 2),
 });
+
+/* we include a set of middleware functions from @middy library, feel free to change */
+// it is also possible to define de output schema of your lambda functions
+export const handler = commonMiddleware(hello)
+  .use(validator({ inputSchema: helloSchema }));
